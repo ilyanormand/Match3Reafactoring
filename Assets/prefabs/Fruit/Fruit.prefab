@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 434416}
   - component: {fileID: 2947469621593590105}
   - component: {fileID: 1233345554346369383}
+  - component: {fileID: -5601139759126111118}
+  - component: {fileID: -1833003914357887226}
   m_Layer: 0
   m_Name: Fruit
   m_TagString: Donut
@@ -103,6 +105,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.33333
+--- !u!114 &-5601139759126111118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0d4b05d3dc40f4981cf8af3132f3de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeAngle: 0
+  data: {fileID: 0}
+--- !u!114 &-1833003914357887226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c84a4352037014a87615c1b26f9ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4920723834036433435
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,75 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EventReciever : MonoBehaviour
+{
+    private Vector3 firstTouchPosition, finalTouchPosition;
+    public float swipeAngle;
+    public Data data;
+    private void OnMouseDown()
+    {
+        data.clickedObjectIndex = transform.parent.transform.GetSiblingIndex();
+        data.clickedObject = this.gameObject;
+        Debug.Log("data.clickedObject = "+ data.clickedObject);
+        Debug.Log("nameClicked = " + transform.parent.name);
+        Debug.Log("indexClickedObject = " + data.clickedObjectIndex);
+        firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); // получаю позицию обьекта при клике
+    }
+
+    private void OnMouseUp()
+    {
+        data.clicked = true;
+        finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
+        Debug.Log("SwipeAngle = " + swipeAngle);
+        data.swipeIndex = SwipeIndexFinding();
+    }
+
+    private void Start()
+    {
+        data = FindObjectOfType<Data>();
+    }
+
+    private int SwipeIndexFinding() 
+    {
+        if (swipeAngle > -45 && swipeAngle <= 45 && swipeAngle != 0)
+        {
+            Debug.Log("vector right");
+            int newIndex = data.clickedObjectIndex + 1;
+            Debug.Log("newIndex = " + newIndex);
+            data.vectorSwipe = Vector3.right;
+            return newIndex;
+        }
+        else if (swipeAngle > 45 && swipeAngle <= 135 && swipeAngle != 0)
+        {
+            Debug.Log("vector up");
+            int newIndex = data.clickedObjectIndex - data.widht;
+            Debug.Log("newIndex = " + newIndex);
+            data.vectorSwipe = Vector3.up;
+            return newIndex;
+        }
+        else if ((swipeAngle > 135 || swipeAngle <= -135) && swipeAngle != 0)
+        {
+            Debug.Log("vector left");
+            int newIndex = data.clickedObjectIndex - 1;
+            Debug.Log("newIndex = " + newIndex);
+            data.vectorSwipe = Vector3.left;
+            return newIndex;
+        }
+        else if (swipeAngle < -45 && swipeAngle >= -135 && swipeAngle != 0)
+        {
+            Debug.Log("vector down");
+            int newIndex = data.clickedObjectIndex + data.widht;
+            Debug.Log("newIndex = " + newIndex);
+            data.vectorSwipe = Vector3.down;
+            return newIndex;
+        }
+        else
+        {
+            return -1;
+        }
+        
+    }
+        
+}

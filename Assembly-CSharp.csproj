@@ -66,7 +66,10 @@
     <Compile Include="Assets\Scripts\Board\Data.cs" />
     <Compile Include="Assets\Scripts\Board\MapReader.cs" />
     <Compile Include="Assets\Scripts\Board\ReaderCSV.cs" />
+    <Compile Include="Assets\Scripts\Fruit\EventReciever.cs" />
+    <Compile Include="Assets\Scripts\Fruit\FruitAnimations.cs" />
     <Compile Include="Assets\Scripts\Fruit\FruitGenerator.cs" />
+    <Compile Include="Assets\Scripts\Fruit\fruitController.cs" />
     <None Include="Assets\Art\pngGui\README.txt" />
     <None Include="Assets\Art\buttons\Button.png.txt" />
     <None Include="Assets\Art\pngGui\Window.png.txt" />

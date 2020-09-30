@@ -6,15 +6,17 @@ public class MapReader : MonoBehaviour
     
     //string[] TypeTiles = { "blank", "breakable", "concrete", "lock" }; // Типы Плиток\
     public GameObject TilePrefab;
+    private Data data;
     ReaderCSV readerCSV; //Обьект для чтения csv
     public int Width = 9;
     public int Height = 9;
     public float PaddingX = 1.2f;
     public float PaddingY = 1.2f;
-    private List<GameObject> GeneratedTiles;
     void Start()
     {
-        GeneratedTiles = new List<GameObject>();
+        data = FindObjectOfType<Data>();
+        data.widht = Width;
+        data.height = Height;
         readerCSV = FindObjectOfType<ReaderCSV>();
         if (readerCSV.finish == true) // если readerCSV прочитал csv file
         {
@@ -37,7 +39,7 @@ public class MapReader : MonoBehaviour
         {
             int elementNumber = mapList[i];
             //string type = TypeTiles[elementNumber];
-            GeneratedTiles[i].transform.GetChild(elementNumber-1).gameObject.SetActive(true);
+            data.GeneratedTiles[i].transform.GetChild(elementNumber-1).gameObject.SetActive(true);
         }
     }
 
@@ -53,8 +55,8 @@ public class MapReader : MonoBehaviour
                 //Debug.Log("vector position generation = " + position);
                 GameObject tile = Instantiate(prefab, position, Quaternion.identity);
                 tile.transform.parent = this.transform;
-                tile.name = "(" + i + ", " + j + ")";
-                GeneratedTiles.Add(tile);
+                tile.name = "(" + j + ", " + i + ")";
+                data.GeneratedTiles.Add(tile);
             }
         }
     }
