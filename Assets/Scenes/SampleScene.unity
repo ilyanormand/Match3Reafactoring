@@ -214,6 +214,8 @@ GameObject:
   m_Component:
   - component: {fileID: 647099954}
   - component: {fileID: 647099953}
+  - component: {fileID: 647099955}
+  - component: {fileID: 647099956}
   m_Layer: 0
   m_Name: FruitController
   m_TagString: Untagged
@@ -233,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3e771cfe2717540834ff96fa79fffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfSwipe: 1
+  speedOfSwipe: 0
 --- !u!4 &647099954
 Transform:
   m_ObjectHideFlags: 0
@@ -248,6 +250,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &647099955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647099952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68efeb7c72da473418f01c7f920ca23c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &647099956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647099952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0660deb8faa3ce44d93abe84dbe4cb5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &845130444
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4ca0e9e40f66f44a3d3ce1cd6b8c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: E:\unityGames\Match3Refactoring\Assets\Levels\lvl1.csv
+  path: 
+  textAsset: {fileID: 0}
   ListOfTiles: 
   finish: 0
   level: 1
@@ -346,14 +373,17 @@ MonoBehaviour:
   FruitArray: 
   GeneratedTiles: []
   GeneratedFruits: []
+  MatchedFruitIndexs: 
   addedToArray: 0
   GameWait: 0
   clicked: 0
   swiped: 0
+  MatchesFinded: 0
   widht: 0
   height: 0
   swipeIndex: 0
   vectorSwipe: {x: 0, y: 0, z: 0}
+  initPosSwipe: {x: 0, y: 0, z: 0}
   clickedObjectIndex: 0
   clickedObject: {fileID: 0}
   fruitController: {fileID: 0}
@@ -370,4 +400,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &928151322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928151325}
+  - component: {fileID: 928151324}
+  - component: {fileID: 928151323}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &928151323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928151322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &928151324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928151322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &928151325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928151322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

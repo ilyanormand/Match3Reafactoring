@@ -11,6 +11,7 @@ public class EventReciever : MonoBehaviour
     {
         data.clickedObjectIndex = transform.parent.transform.GetSiblingIndex();
         data.clickedObject = this.gameObject;
+        data.initPosSwipe = data.clickedObject.transform.position;
         Debug.Log("data.clickedObject = "+ data.clickedObject);
         Debug.Log("nameClicked = " + transform.parent.name);
         Debug.Log("indexClickedObject = " + data.clickedObjectIndex);
@@ -38,7 +39,7 @@ public class EventReciever : MonoBehaviour
             Debug.Log("vector right");
             int newIndex = data.clickedObjectIndex + 1;
             Debug.Log("newIndex = " + newIndex);
-            data.vectorSwipe = Vector3.right;
+            data.vectorSwipe = data.GeneratedFruits[newIndex].transform.position; // сохраняем координаты обьекта для свайпа
             return newIndex;
         }
         else if (swipeAngle > 45 && swipeAngle <= 135 && swipeAngle != 0)
@@ -46,7 +47,7 @@ public class EventReciever : MonoBehaviour
             Debug.Log("vector up");
             int newIndex = data.clickedObjectIndex - data.widht;
             Debug.Log("newIndex = " + newIndex);
-            data.vectorSwipe = Vector3.up;
+            data.vectorSwipe = data.GeneratedFruits[newIndex].transform.position; // сохраняем координаты обьекта для свайпа
             return newIndex;
         }
         else if ((swipeAngle > 135 || swipeAngle <= -135) && swipeAngle != 0)
@@ -54,7 +55,7 @@ public class EventReciever : MonoBehaviour
             Debug.Log("vector left");
             int newIndex = data.clickedObjectIndex - 1;
             Debug.Log("newIndex = " + newIndex);
-            data.vectorSwipe = Vector3.left;
+            data.vectorSwipe = data.GeneratedFruits[newIndex].transform.position; // сохраняем координаты обьекта для свайпа
             return newIndex;
         }
         else if (swipeAngle < -45 && swipeAngle >= -135 && swipeAngle != 0)
@@ -62,7 +63,7 @@ public class EventReciever : MonoBehaviour
             Debug.Log("vector down");
             int newIndex = data.clickedObjectIndex + data.widht;
             Debug.Log("newIndex = " + newIndex);
-            data.vectorSwipe = Vector3.down;
+            data.vectorSwipe = data.GeneratedFruits[newIndex].transform.position; // сохраняем координаты обьекта для свайпа
             return newIndex;
         }
         else

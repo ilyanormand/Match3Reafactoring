@@ -15,7 +15,6 @@ public class fruitController : MonoBehaviour
     {
         data = FindObjectOfType<Data>();
         fruitList = new List<int>();
-        
     }
     // обработчик событий по клику на экран
 
@@ -26,6 +25,16 @@ public class fruitController : MonoBehaviour
         Debug.Log("Start co routine");
         if (data.swipeIndex != -1)
         {
+            firstFruit = data.GeneratedFruits[data.clickedObjectIndex];
+            Debug.Log("firstFruit = " + firstFruit.transform.parent.name);
+            SpriteNumber = array[data.clickedObjectIndex];
+            Debug.Log("SwipeIndex = " + data.swipeIndex);
+            secondFruit = data.GeneratedFruits[data.swipeIndex];
+            Debug.Log("secondFruit = " + secondFruit.transform.parent.name);
+
+            firstFruit.transform.position = data.initPosSwipe;
+            secondFruit.transform.position = data.vectorSwipe;
+
             firstFruit.transform.GetChild(SpriteNumber).gameObject.SetActive(false);
             secondFruit.transform.GetChild(array[data.swipeIndex]).gameObject.SetActive(false);
             firstFruit.transform.GetChild(array[data.swipeIndex]).gameObject.SetActive(true);
@@ -44,17 +53,20 @@ public class fruitController : MonoBehaviour
     {
         if (data.swipeIndex != -1) 
         {
-            firstFruit = data.GeneratedFruits[data.clickedObjectIndex];
-            Debug.Log("firstFruit = " + firstFruit.transform.parent.name);
-            SpriteNumber = array[data.clickedObjectIndex];
-            Debug.Log("SwipeIndex = " + data.swipeIndex);
-            secondFruit = data.GeneratedFruits[data.swipeIndex];
-            Debug.Log("secondFruit = " + secondFruit.transform.parent.name);
-
-            float step = speedOfSwipe * Time.deltaTime;
-            firstFruit.transform.position = Vector3.MoveTowards(firstFruit.transform.position, secondFruit.transform.position, step);
-            secondFruit.transform.position = Vector3.MoveTowards(secondFruit.transform.position, firstFruit.transform.position, step);
-            Debug.Log("iiii");
+            if (speedOfSwipe < 1f)
+            {
+                firstFruit = data.GeneratedFruits[data.clickedObjectIndex];
+                secondFruit = data.GeneratedFruits[data.swipeIndex];
+                speedOfSwipe += 0.15f;
+                firstFruit.transform.position = Vector3.Lerp(data.initPosSwipe, data.vectorSwipe, speedOfSwipe);
+                secondFruit.transform.position = Vector3.Lerp(data.vectorSwipe, data.initPosSwipe, speedOfSwipe);
+            }
+            else if(firstFruit.transform.position == data.vectorSwipe && secondFruit.transform.position == data.initPosSwipe)
+            {
+                data.clicked = false;
+                speedOfSwipe = 0;
+                StartCoroutine(changeArrPosition(fruitList));
+            }   
         }
     }
 
@@ -64,7 +76,6 @@ public class fruitController : MonoBehaviour
         {
             fruitList = data.FruitArray;
             swipeAnimation(fruitList);
-            //StartCoroutine(changeArrPosition(fruitList));
         }
     }
 }
