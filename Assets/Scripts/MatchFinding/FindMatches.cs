@@ -1,132 +1,146 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class FindMatches : MonoBehaviour
 {
     Data data;
-    
-    List<int> countedMatched;
-    bool state = true;
-    void Start()
+    BoosterFinding boosterFinding;
+    List<int[]> matchedList;
+    int[] arrayInt;
+    ViewMatches viewMatches;
+    private void Start()
     {
-        data = FindObjectOfType<Data>();
-        countedMatched = new List<int>();
+        boosterFinding = FindObjectOfType<BoosterFinding>();
+        viewMatches = FindObjectOfType<ViewMatches>();
+        matchedList = new List<int[]>();
+        data = FindObjectOfType<Data>();        
     }
-    void Update()
+    public void findAllMatches() 
     {
-        if (data.addedToArray && state == true) 
-        {
-            SearchRowMatches();
-            SearchColumnMatches();
-        }
+        Debug.Log("Starting finding matches");
     }
 
-    // метод для поиска матчей по горизонтали
-
-    public void SearchRowMatches() 
+    public void findMatch()
     {
-        state = false;
-        int b; // переменная которая хранит все себе следуйщий индекс массива
-        int a = 0; // переменная которой присвоено первый индекс каждого ряда
-        for (int i = 0; i <= 81; i++)
+        SearchRowMatch();
+        SearchColumnMatch();
+        viewMatches.ScaleMatches();
+        boosterFinding.MakeBooster();
+        //Debug.Log($"[{data.y_clickedIndex}, {data.x_clickedIndex}]");
+    }
+    private void SearchColumnMatch() 
+    {
+        for (int x = 0; x < data.widht; x++) 
         {
-            b = i + 1;
-            //Debug.Log("i = " + i);
-            if (b >= 81)
+            for (int y = 0; y < data.widht; y++)
             {
-                //Debug.Log("Limit");
-                break;
-            }
-            //Debug.Log("a = " + a);
-            if ((i - 8) == a) // проверка является ли i последним индексом в ряде
-            {
-                a = a + 9; 
-                //Debug.Log("a = " + a);
-                if (countedMatched.Count >= 2)  
+                if ((y + 1) > (data.widht-1)) 
                 {
-                    countedMatched.Add(i);
-                    foreach (int index in countedMatched) 
+                    if (matchedList.Count >= 2)
                     {
-                        Debug.Log("matchedIndex = " + index);
-                        data.MatchedFruitIndexs.Add(index);
+                        arrayInt = new int[2];
+                        arrayInt[0] = y;
+                        arrayInt[1] = x;
+                        matchedList.Add(arrayInt);
+
+                        List<int[]> tempList = new List<int[]>();
+                        foreach (int[] arr in matchedList)
+                        {
+                            tempList.Add(arr);
+                        }
+                        data.MatchedColumnIndexs.Add(tempList);
+                        matchedList.Clear();
                     }
+                    matchedList.Clear();
+                    break;
                 }
-                Debug.Log("clear Counted Matches");
-                countedMatched.Clear(); // очищаем массив чтоб элемент другого ряда не взялся в матч
-                continue;
-            }
-            if (data.FruitArray[i] == data.FruitArray[b])
-            {
-                Debug.Log("adding new index: " + i);
-                countedMatched.Add(i);
-            }
-            else if(countedMatched.Count >= 2)
-            {
-                // добавляем эти индексы в финальный массив
-                Debug.Log("adding new index: " + i);
-                countedMatched.Add(i);
-                Debug.Log("countedMatched.Count = " + countedMatched.Count);
-
-                // добавляем все заматченные элементы в специальный массив для view
-                foreach (int index in countedMatched)
+                if (data.FruitArray[y, x] == data.FruitArray[y + 1, x])
                 {
-                    Debug.Log("matchedIndex = " + index);
-                    data.MatchedFruitIndexs.Add(index);
+                    arrayInt = new int[2];
+                    arrayInt[0] = y;
+                    arrayInt[1] = x;
+                    matchedList.Add(arrayInt);
                 }
-                countedMatched.Clear();
-            }
-            else
-            {
-                countedMatched.Clear();
-            }
-        }
-        Debug.Log("data.MatchesFinded = " + data.MatchesFinded);
-        if (data.MatchedFruitIndexs.Count >= 3) 
-        {
-            data.MatchesFinded = true;
-        }
-        Debug.Log("data.MatchesFinded = " + data.MatchesFinded);
+                else if (matchedList.Count >= 2)
+                {
+                    arrayInt = new int[2];
+                    arrayInt[0] = y;
+                    arrayInt[1] = x;
+                    matchedList.Add(arrayInt);
 
+                    List<int[]> tempList = new List<int[]>();
+                    foreach (int[] arr in matchedList)
+                    {
+                        tempList.Add(arr);
+                    }
+                    data.MatchedColumnIndexs.Add(tempList);
+                    matchedList.Clear();
+                }
+                else
+                {
+                    matchedList.Clear();
+                }
+            }
+        }
     }
 
-    // метод для поиска матчей по вертикали
-
-    //TODO решить проблему почему не работает  скрипт
-    public void SearchColumnMatches()
+    private void SearchRowMatch() 
     {
-        int x; // индекс сдвига
-        int a = 0; // позиция первого элемента
-        for (int i = 0; i < 9; i++) 
+        for (int y = 0; y < data.widht; y++)
         {
-            x = a + 9;
-            if (x >= 81) 
+            for (int x = 0; x < data.height; x++)
             {
-                break;
-            }
-            if (data.FruitArray[a] == data.FruitArray[x])
-            {
-                a = x;
-                countedMatched.Add(a);
-            }
-            else if (countedMatched.Count >= 2)
-            {
-                a = x;
-                foreach (int index in countedMatched)
+                if ((x + 1) > (data.widht - 1))
                 {
-                    data.MatchedFruitIndexs.Add(index);
+                    if (matchedList.Count >= 2) 
+                    {
+                        arrayInt = new int[2];
+                        arrayInt[0] = y;
+                        arrayInt[1] = x;
+                        matchedList.Add(arrayInt);
+
+                        List<int[]> tempList = new List<int[]>();
+                        foreach (int[] arr in matchedList)
+                        {
+                            tempList.Add(arr);
+                        }
+                        data.MatchedRowIndexs.Add(tempList);
+                        matchedList.Clear();
+                    }
+                    matchedList.Clear();
+                    break;
                 }
-                countedMatched.Clear();
-            }
-            else 
-            {
-                a = x;
-                countedMatched.Clear();
+                if (data.FruitArray[y, x] == data.FruitArray[y, x + 1])
+                {
+                    arrayInt = new int[2];
+                    arrayInt[0] = y;
+                    arrayInt[1] = x;
+                    matchedList.Add(arrayInt);
+                }
+                else if (matchedList.Count >= 2)
+                {
+                    arrayInt = new int[2];
+                    arrayInt[0] = y;
+                    arrayInt[1] = x;
+                    matchedList.Add(arrayInt);
+
+                    List<int[]> tempList = new List<int[]>();
+                    foreach (int[] arr in matchedList)
+                    {
+                        tempList.Add(arr);
+                    }
+                    data.MatchedRowIndexs.Add(tempList);
+                    matchedList.Clear();
+                }
+                else
+                {
+                    matchedList.Clear();
+                }
             }
         }
     }
 
-
+    
     
 
 }

@@ -6,12 +6,11 @@ public class MapReader : MonoBehaviour
     
     //string[] TypeTiles = { "blank", "breakable", "concrete", "lock" }; // Типы Плиток\
     public GameObject TilePrefab;
+    public GameObject TileRow;
     private Data data;
     ReaderCSV readerCSV; //Обьект для чтения csv
     public int Width = 9;
     public int Height = 9;
-    public float PaddingX = 1.2f;
-    public float PaddingY = 1.2f;
     void Start()
     {
         data = FindObjectOfType<Data>();
@@ -20,45 +19,50 @@ public class MapReader : MonoBehaviour
         readerCSV = FindObjectOfType<ReaderCSV>();
         if (readerCSV.finish == true) // если readerCSV прочитал csv file
         {
-            GenerateTiles(TilePrefab, Width, Height, PaddingX, PaddingY);
+            GenerateTiles2D(TileRow, TilePrefab, Width, Height);
             chooseType(readerCSV.ListOfTiles); // определить какой тип на каждый элемент массива котороый передает csv file
             readerCSV.finish = false;
 
         }
-        else
-        {
-            //Debug.Log("readerCSV is not finished his work!");
-        }
     }
 
-    private void chooseType(List<int> mapList)
+    // активация вида плитки исходи из карты csv
+    private void chooseType(int[,] mapList)
     {
-        //Debug.Log("ListOfTiles.Count = " + mapList.Count);
-        //int TypeTilesLen = TypeTiles.Length; // закешировали длину TypeTiles
-        for (int i = 0; i < mapList.Count; i++)
+        int rowPosition = 8;
+        for (int y = 0; y < 9; y++)
         {
-            int elementNumber = mapList[i];
-            //string type = TypeTiles[elementNumber];
-            data.GeneratedTiles[i].transform.GetChild(elementNumber-1).gameObject.SetActive(true);
-        }
-    }
-
-    private void GenerateTiles(GameObject prefab, int width, int height, float x_padding, float y_padding)  
-    {
-        //Debug.Log("Start generating");
-        for (int i = width; i > 0; i--) 
-        {
-            for (int j = 0; j < height; j++)
+            if (rowPosition < 0) 
             {
-                //Vector2 position = new Vector2(-4.78f +(x_padding *(j % width)), -4 + (y_padding * (i % height)));
-                Vector2 position = new Vector2(j, i);
-                //Debug.Log("vector position generation = " + position);
-                GameObject tile = Instantiate(prefab, position, Quaternion.identity);
-                tile.transform.parent = this.transform;
-                tile.name = "(" + j + ", " + i + ")";
-                data.GeneratedTiles.Add(tile);
+                break;
+            }
+            for (int x = 0; x < 9; x++) 
+            {
+                int elementNumber = mapList[y, x];
+                //Debug.Log(elementNumber);
+                data.GeneratedTiles[rowPosition, x].transform.GetChild(elementNumber - 1).gameObject.SetActive(true);
+            }
+            rowPosition--;
+        }
+    }
+
+    // генерация плиток на board
+    private void GenerateTiles2D(GameObject TileRow, GameObject TileColumn, int width, int height) 
+    {
+        for (int y = height-1; y >= 0; y--) 
+        {
+            Vector2 positionRow = new Vector2(0, y);
+            GameObject row = Instantiate(TileRow, positionRow, Quaternion.identity);
+            row.transform.parent = this.transform;
+            row.name = $"{y}";
+            for (int x = 0; x < width; x++) 
+            {
+                Vector2 positionColumn = new Vector2(x, y);
+                GameObject column = Instantiate(TileColumn, positionColumn, Quaternion.identity);
+                column.transform.parent = row.transform;
+                column.name = $"{x}";
+                data.GeneratedTiles[y, x] = column;
             }
         }
     }
-
 }

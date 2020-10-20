@@ -11,7 +11,7 @@ public class ReaderCSV : MonoBehaviour
     public string path;
     string _path;
     public TextAsset textAsset;
-    public List<int> ListOfTiles = new List<int>();
+    public int[,] ListOfTiles = new int[9, 9];
     public bool finish = false;
     public int level;
     object csvFile;
@@ -36,45 +36,19 @@ public class ReaderCSV : MonoBehaviour
         fileParse(textAsset);
     }
 
-    private void ReadFile()
-    {
-
-        StreamReader strReader = new StreamReader(path);
-        int i = 0;
-        while (!strReader.EndOfStream || i == 100)
-        {
-            string line = strReader.ReadLine();
-            string[] values = line.Split(',');
-            foreach (string str in values)
-            {
-                //Debug.Log(str);
-                ListOfTiles.Add(int.Parse(str));
-            }
-            // защита от бесконечного цикла
-            i++;
-        }
-        finish = true;
-
-        // Для просмотра контента внтури массива
-        /*if (ListOfTiles != null)
-        {
-            foreach (string n in ListOfTiles)
-            {
-                Debug.Log(n);
-            }
-        }*/
-    }
-
     public void fileParse(TextAsset csv) 
     {
         string text = csv.text;
         string[] lines = text.Split('\n', ',');
-
-        foreach (string line in lines) 
+        int word = 0;
+        for (int y = 0; y < 9; y++)
         {
-            ListOfTiles.Add(int.Parse(line));
+            for (int x = 0; x < 9; x++) 
+            {
+                ListOfTiles[y, x] = int.Parse(lines[word]);
+                word++;
+            }
         }
-
         finish = true;
     }
 }

@@ -213,9 +213,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647099954}
-  - component: {fileID: 647099953}
   - component: {fileID: 647099955}
   - component: {fileID: 647099956}
+  - component: {fileID: 647099957}
+  - component: {fileID: 647099953}
   m_Layer: 0
   m_Name: FruitController
   m_TagString: Untagged
@@ -232,10 +233,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 647099952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c3e771cfe2717540834ff96fa79fffc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7916fc0d27f765545b363e7111a09204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfSwipe: 0
+  spriteStrife: {fileID: 21300000, guid: 2ce0ba72f69364c9a946130c767464d4, type: 3}
+  spriteColorBomb: {fileID: 21300000, guid: 01954c4ea2b65488091af7570dad18f0, type: 3}
+  candyBomb: {fileID: 21300000, guid: d202af447c8114456aefdcc9248699cb, type: 3}
 --- !u!4 &647099954
 Transform:
   m_ObjectHideFlags: 0
@@ -274,6 +277,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0660deb8faa3ce44d93abe84dbe4cb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &647099957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647099952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f152d75a1dac42f49a4493e3e7c0143e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedOfFalling: 0
+  TimeOfFalling: 3
+  fall: 0
 --- !u!1 &845130444
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,10 +324,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TilePrefab: {fileID: 7241598955479661886, guid: 647c7550ae802fc4ab1a94ee3297b77a,
     type: 3}
+  TileRow: {fileID: 3472968490371288671, guid: 98af456a13a9f2948a820df1d672e6c2, type: 3}
   Width: 9
   Height: 9
-  PaddingX: 1.2
-  PaddingY: 1.2
 --- !u!114 &845130446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: 
   textAsset: {fileID: 0}
-  ListOfTiles: 
   finish: 0
   level: 1
 --- !u!4 &845130447
@@ -370,22 +386,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705134d58b1ad074ea3c2bf5b632f192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FruitArray: 
-  GeneratedTiles: []
-  GeneratedFruits: []
-  MatchedFruitIndexs: 
   addedToArray: 0
   GameWait: 0
   clicked: 0
   swiped: 0
   MatchesFinded: 0
+  CheckMatches: 1
   widht: 0
   height: 0
   swipeIndex: 0
   vectorSwipe: {x: 0, y: 0, z: 0}
   initPosSwipe: {x: 0, y: 0, z: 0}
-  clickedObjectIndex: 0
-  clickedObject: {fileID: 0}
+  x_clickedIndex: 0
+  y_clickedIndex: 0
   fruitController: {fileID: 0}
 --- !u!4 &907998772
 Transform:
@@ -462,6 +475,50 @@ Transform:
   m_GameObject: {fileID: 928151322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1876147741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1876147743}
+  - component: {fileID: 1876147742}
+  m_Layer: 0
+  m_Name: EventReciever
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1876147742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876147741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0d4b05d3dc40f4981cf8af3132f3de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findMatches: {fileID: 0}
+--- !u!4 &1876147743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876147741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4770048, y: 4.9921656, z: -169.37444}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

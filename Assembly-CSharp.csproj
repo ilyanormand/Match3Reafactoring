@@ -66,10 +66,13 @@
     <Compile Include="Assets\Scripts\Board\Data.cs" />
     <Compile Include="Assets\Scripts\Board\MapReader.cs" />
     <Compile Include="Assets\Scripts\Board\ReaderCSV.cs" />
+    <Compile Include="Assets\Scripts\Boosters\BoosterFinding.cs" />
+    <Compile Include="Assets\Scripts\Boosters\BoosterMatching.cs" />
     <Compile Include="Assets\Scripts\Fruit\EventReciever.cs" />
     <Compile Include="Assets\Scripts\Fruit\FruitGenerator.cs" />
     <Compile Include="Assets\Scripts\Fruit\fruitController.cs" />
     <Compile Include="Assets\Scripts\MatchFinding\FindMatches.cs" />
+    <Compile Include="Assets\Scripts\MatchFinding\OnDestroying.cs" />
     <Compile Include="Assets\Scripts\MatchFinding\ViewMatches.cs" />
     <None Include="Assets\Art\pngGui\README.txt" />
     <None Include="Assets\Art\buttons\Button.png.txt" />
