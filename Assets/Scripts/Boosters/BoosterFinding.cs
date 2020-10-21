@@ -42,7 +42,7 @@ public class BoosterFinding : MonoBehaviour
         {
             for (int j = 0; j < data.MatchedRowIndexs.Count; j++) 
             {
-                Debug.Log("data.MatchedRowIndexs.Count = " + data.MatchedRowIndexs.Count);
+                //Debug.Log("data.MatchedRowIndexs.Count = " + data.MatchedRowIndexs.Count);
                 CheckForCandyBomb(data.MatchedRowIndexs[j], data.MatchedColumnIndexs[i]);
             } 
         }
@@ -68,6 +68,7 @@ public class BoosterFinding : MonoBehaviour
         int spriteIndex = data.FruitArray[indexs[0], indexs[1]];
         GameObject fruit = data.GeneratedFruits[indexs[0], indexs[1]];
         fruit.transform.GetChild(spriteIndex).transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = candyBomb;
+        data.CandyBoosters.Add(indexs);
     }
 
     private void MakeColorBomb(Sprite colorBomb, List<int[]> matchedList) 
@@ -78,15 +79,17 @@ public class BoosterFinding : MonoBehaviour
         GameObject fruit = data.GeneratedFruits[matchedList[0][0], matchedList[0][1]];
         // делаем из него другой спрайт
         fruit.transform.GetChild(spriteIndex).transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = colorBomb;
+        data.ColorBoosters.Add(matchedList[0]);
     }
 
     private void MakeStrifeBomb(Sprite strifeImage, List<int[]> matchedList)
-    { 
+    {
         // берем первый элемента списка для создания на его месте бустера
         int spriteIndex = data.FruitArray[matchedList[0][0], matchedList[0][1]]; 
         GameObject fruit = data.GeneratedFruits[matchedList[0][0], matchedList[0][1]];
         // делаем из него другой спрайт
         fruit.transform.GetChild(spriteIndex).transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = strifeImage;
+        data.ColBoosters.Add(matchedList[0]);
     }
     // массив для бустеров (карта)
     // массив для хранения

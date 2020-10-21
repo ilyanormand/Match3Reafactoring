@@ -5,12 +5,14 @@ public class FindMatches : MonoBehaviour
 {
     Data data;
     BoosterFinding boosterFinding;
+    BoosterMatching boosterMatching;
     List<int[]> matchedList;
     int[] arrayInt;
     ViewMatches viewMatches;
     private void Start()
     {
         boosterFinding = FindObjectOfType<BoosterFinding>();
+        boosterMatching = FindObjectOfType<BoosterMatching>();
         viewMatches = FindObjectOfType<ViewMatches>();
         matchedList = new List<int[]>();
         data = FindObjectOfType<Data>();        
@@ -26,6 +28,10 @@ public class FindMatches : MonoBehaviour
         SearchColumnMatch();
         viewMatches.ScaleMatches();
         boosterFinding.MakeBooster();
+        boosterMatching.findMatchedBoosterIndexs(data.CandyBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "candy");
+        boosterMatching.findMatchedBoosterIndexs(data.ColorBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "color");
+        boosterMatching.findMatchedBoosterIndexs(data.ColBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "column");
+        boosterMatching.findMatchedBoosterIndexs(data.RowBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "row");
         //Debug.Log($"[{data.y_clickedIndex}, {data.x_clickedIndex}]");
     }
     private void SearchColumnMatch() 

@@ -8,6 +8,10 @@ public class Data : MonoBehaviour
     public int [,] FruitArray; //sprite numbers
     public GameObject[,] GeneratedTiles;
     public GameObject[,] GeneratedFruits; // all fruit gameobject on the board
+    public List<int[]> ColBoosters;
+    public List<int[]> RowBoosters;
+    public List<int[]> CandyBoosters;
+    public List<int[]> ColorBoosters;
     public List<List<int[]>> MatchedRowIndexs;
     public List<List<int[]>> MatchedColumnIndexs;
     public bool addedToArray = false;
@@ -27,6 +31,10 @@ public class Data : MonoBehaviour
 
     private void Awake()
     {
+        ColBoosters = new List<int[]>();
+        RowBoosters = new List<int[]>();
+        CandyBoosters = new List<int[]>();
+        ColorBoosters = new List<int[]>();
         MatchedRowIndexs = new List<List<int[]>>();
         MatchedColumnIndexs = new List<List<int[]>>();
         GeneratedTiles = new GameObject[9,9];
