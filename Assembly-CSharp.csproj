@@ -74,9 +74,12 @@
     <Compile Include="Assets\Scripts\MatchFinding\FindMatches.cs" />
     <Compile Include="Assets\Scripts\MatchFinding\OnDestroying.cs" />
     <Compile Include="Assets\Scripts\MatchFinding\ViewMatches.cs" />
+    <None Include="Assets\SweetSugarResources\Localization\English.txt" />
     <None Include="Assets\Art\pngGui\README.txt" />
     <None Include="Assets\Art\buttons\Button.png.txt" />
+    <None Include="Assets\SweetSugarResources\Localization\Russian.txt" />
     <None Include="Assets\Art\pngGui\Window.png.txt" />
+    <None Include="Assets\SweetSugarResources\levelstate.txt.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/unityGames/Match3Refactoring/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -7,14 +7,13 @@ public class EventReciever : MonoBehaviour
 
     public delegate void MethodContainer();
     public delegate void Array2DReturn();
-    public delegate void BoosterSearch();
+    public delegate void SwipeEvent();
     public FindMatches findMatches;
     private void Awake()
     {
         findMatches = FindObjectOfType<FindMatches>();
         fruitController.MatchedFindEvent += findMatches.findMatch;
     }
-
 
     /*private Vector3 firstTouchPosition, finalTouchPosition;
     public float swipeAngle;
@@ -80,6 +79,8 @@ public class EventReciever : MonoBehaviour
             data.vectorSwipe = data.GeneratedFruits[newIndex].transform.position; // сохраняем координаты обьекта для свайпа
             return newIndex;
         }
+       
+        
         else if (swipeAngle < -45 && swipeAngle >= -135 && swipeAngle != 0)
         {
             //Debug.Log("vector down");

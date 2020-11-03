@@ -26,12 +26,16 @@ public class FindMatches : MonoBehaviour
     {
         SearchRowMatch();
         SearchColumnMatch();
-        viewMatches.ScaleMatches();
-        boosterFinding.MakeBooster();
-        boosterMatching.findMatchedBoosterIndexs(data.CandyBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "candy");
-        boosterMatching.findMatchedBoosterIndexs(data.ColorBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "color");
-        boosterMatching.findMatchedBoosterIndexs(data.ColBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "column");
-        boosterMatching.findMatchedBoosterIndexs(data.RowBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "row");
+        if (data.MatchedColumnIndexs.Count > 0 && data.MatchedRowIndexs.Count > 0) 
+        {
+            /*boosterMatching.findMatchedBoosterIndexs(data.CandyBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "candy");
+            boosterMatching.findMatchedBoosterIndexs(data.ColorBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "color");
+            boosterMatching.findMatchedBoosterIndexs(data.ColBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "column");
+            boosterMatching.findMatchedBoosterIndexs(data.RowBoosters, data.MatchedColumnIndexs, data.MatchedRowIndexs, "row");*/
+            viewMatches.DestroyMatches();
+            //boosterFinding.MakeBooster();
+        }
+        
         //Debug.Log($"[{data.y_clickedIndex}, {data.x_clickedIndex}]");
     }
     private void SearchColumnMatch() 

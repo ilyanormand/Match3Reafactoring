@@ -237,9 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7916fc0d27f765545b363e7111a09204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteStrife: {fileID: 21300000, guid: 2ce0ba72f69364c9a946130c767464d4, type: 3}
-  spriteColorBomb: {fileID: 21300000, guid: 01954c4ea2b65488091af7570dad18f0, type: 3}
-  candyBomb: {fileID: 21300000, guid: d202af447c8114456aefdcc9248699cb, type: 3}
 --- !u!4 &647099954
 Transform:
   m_ObjectHideFlags: 0

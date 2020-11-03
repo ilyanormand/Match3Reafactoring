@@ -22,7 +22,7 @@ public class Data : MonoBehaviour
     public bool CheckMatches = true;
     public int widht;
     public int height;
-    public int swipeIndex;
+    public int[,] swipeIndexs;
     public Vector3 vectorSwipe;
     public Vector3 initPosSwipe;
     public int x_clickedIndex;
@@ -41,6 +41,7 @@ public class Data : MonoBehaviour
         fruitController = FindObjectOfType<fruitController>();
         FruitArray = new int[9,9];
         GeneratedFruits = new GameObject[9, 9];
+        swipeIndexs = new int[2, 2];
     }
     // Update is called once per frame
     void Update()

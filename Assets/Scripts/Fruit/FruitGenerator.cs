@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class FruitGenerator : MonoBehaviour
 {
+    public static event EventReciever.Array2DReturn MatchedFindEvent;
     public GameObject fruitPrefab;
     public Data data;
     public int[] TypeOfFruit; // elements are made in scene unity manually

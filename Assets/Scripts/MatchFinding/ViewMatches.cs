@@ -9,19 +9,47 @@ public class ViewMatches : MonoBehaviour
     {
         data = FindObjectOfType<Data>();
     }
-    public void ScaleMatches() 
+    public void DestroyMatches() 
     {
+        Debug.Log("DestroyMatches");
         Vector3 scale = new Vector3(1.5f, 1.5f, 1.5f);
-        /*foreach (List<int[]> n in data.MatchedFruitIndexs)
+        if (data.MatchedColumnIndexs.Count > 0) 
         {
-            foreach (int[] f in n)
+            foreach (List<int[]> list in data.MatchedColumnIndexs)
             {
-                //активировать анимацию у нужных элементов
-                data.GeneratedFruits[f[0], f[1]].transform.localScale = scale;
-                //деактивировать анимацию
+                foreach (int[] arr in list)
+                {
+                    //активировать анимацию у нужных элементов
+                    Debug.Log($"[{arr[0]}, {arr[1]}]");
+                    DesactivateMatches(arr[0], arr[1]);
+                    //деактивировать анимацию
+                }
             }
-        }*/
+        }
+        if (data.MatchedRowIndexs.Count > 0) 
+        {
+            foreach (List<int[]> list in data.MatchedRowIndexs) 
+            {
+                foreach (int[] arr in list) 
+                {
+                    DesactivateMatches(arr[0], arr[1]);
+                }
+            }
+        }  
     }
+
+    private void DesactivateMatches(int y, int x) 
+    {
+        GameObject fruit = data.GeneratedFruits[y, x];
+        int spriteIndex = data.FruitArray[y, x];
+        int randomSprite = Random.Range(0, 5);
+        //desactivate child object
+        fruit.transform.GetChild(spriteIndex).gameObject.SetActive(false);
+        // activate another sprite randomly
+        fruit.transform.GetChild(randomSprite).gameObject.SetActive(true);
+        data.FruitArray[y, x] = randomSprite;
+    }
+
    /* Data data;
     OnDestroying destroy;
     bool animationStart = false;
