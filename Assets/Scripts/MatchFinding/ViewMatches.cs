@@ -40,14 +40,16 @@ public class ViewMatches : MonoBehaviour
 
     private void DesactivateMatches(int y, int x) 
     {
-        GameObject fruit = data.GeneratedFruits[y, x];
+        /*GameObject fruit = data.GeneratedFruits[y, x];
         int spriteIndex = data.FruitArray[y, x];
         int randomSprite = Random.Range(0, 5);
         //desactivate child object
         fruit.transform.GetChild(spriteIndex).gameObject.SetActive(false);
         // activate another sprite randomly
         fruit.transform.GetChild(randomSprite).gameObject.SetActive(true);
-        data.FruitArray[y, x] = randomSprite;
+        data.FruitArray[y, x] = randomSprite;*/
+
+        data.GeneratedFruits[y, x].transform.localScale = new Vector3(1.5f, 1.5f, 0);
     }
 
    /* Data data;

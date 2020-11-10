@@ -5,9 +5,9 @@ using UnityEngine;
 public class EventReciever : MonoBehaviour
 {
 
-    public delegate void MethodContainer();
     public delegate void Array2DReturn();
     public delegate void SwipeEvent();
+    public delegate void FillBoardEvent();
     public FindMatches findMatches;
     private void Awake()
     {

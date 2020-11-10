@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class FruitGenerator : MonoBehaviour
 {
-    public static event EventReciever.Array2DReturn MatchedFindEvent;
+    
     public GameObject fruitPrefab;
     public Data data;
     public int[] TypeOfFruit; // elements are made in scene unity manually
+
     void Start()
     {
         data = FindObjectOfType<Data>(); // найти более оптимизированый способ нахождения обьекта
@@ -23,6 +24,7 @@ public class FruitGenerator : MonoBehaviour
         data.FruitArray[y, x] = TypeOfFruit[index];
         data.addedToArray = true;
         data.GeneratedFruits[y, x] = fruit;
+
     }
 }
 

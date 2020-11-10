@@ -9,13 +9,14 @@ public class FindMatches : MonoBehaviour
     List<int[]> matchedList;
     int[] arrayInt;
     ViewMatches viewMatches;
+    
     private void Start()
     {
         boosterFinding = FindObjectOfType<BoosterFinding>();
         boosterMatching = FindObjectOfType<BoosterMatching>();
         viewMatches = FindObjectOfType<ViewMatches>();
         matchedList = new List<int[]>();
-        data = FindObjectOfType<Data>();        
+        data = FindObjectOfType<Data>();
     }
     public void findAllMatches() 
     {

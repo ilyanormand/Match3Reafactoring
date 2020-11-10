@@ -6,6 +6,7 @@ public class fruitController : MonoBehaviour
 {
     public static event EventReciever.Array2DReturn MatchedFindEvent;
     public static event EventReciever.SwipeEvent SwipeEvent;
+    public static event EventReciever.FillBoardEvent firstFillingEvent;
     Data data;
     private Vector3 firstTouchPosition, finalTouchPosition;
     private float swipeAngle;
@@ -15,6 +16,7 @@ public class fruitController : MonoBehaviour
     private void Start()
     {
         data = FindObjectOfType<Data>();
+        MatchedFindEvent();
     }
 
     private void OnMouseDown() 
@@ -29,6 +31,11 @@ public class fruitController : MonoBehaviour
     {
         finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         data.swipeIndexs = GetSwipeIndex(); //  получаем массив элементов которыем менят с собой местами
+        if (data.swipeIndexs.Length > 0) 
+        {
+            data.initPosSwipe = data.GeneratedFruits[data.swipeIndexs[0, 0], data.swipeIndexs[0, 1]].transform.position;
+            data.vectorSwipe = data.GeneratedFruits[data.swipeIndexs[1, 0], data.swipeIndexs[1, 1]].transform.position;
+        }
         anim = true;
     }
 
@@ -104,6 +111,9 @@ public class fruitController : MonoBehaviour
             int spriteNumber2 = data.FruitArray[arr[1, 0], arr[1, 1]];
             GameObject secondFruit = data.GeneratedFruits[arr[1, 0], arr[1, 1]];
 
+            firstFruit.transform.position = data.initPosSwipe;
+            secondFruit.transform.position = data.vectorSwipe;
+
             firstFruit.transform.GetChild(spriteNumber1).gameObject.SetActive(false);
             secondFruit.transform.GetChild(spriteNumber2).gameObject.SetActive(false);
             firstFruit.transform.GetChild(spriteNumber2).gameObject.SetActive(true);
@@ -112,25 +122,16 @@ public class fruitController : MonoBehaviour
             // обновляем массив
             data.FruitArray[arr[0, 0], arr[0, 1]] = spriteNumber2;
             data.FruitArray[arr[1, 0], arr[1, 1]] = spriteNumber1;
-
-            //MatchedFindEvent();
+            
         }
         
     }
 
     private void SwipeAnimation(GameObject firstFruit, GameObject secondFruit) 
     {
-        Vector3 initPos = data.GeneratedFruits[data.swipeIndexs[0, 0], data.swipeIndexs[0, 1]].transform.position;
-        Debug.Log("initPos, swipeIndexs = " + $"[{data.swipeIndexs[0, 0]}, {data.swipeIndexs[0, 1]}]");
-        Debug.Log("initPos = " + initPos);
-        Vector3 swipePos = data.GeneratedFruits[data.swipeIndexs[1, 0], data.swipeIndexs[1, 1]].transform.position;
-        Debug.Log("swipePos, swipeIndexs = " + $"[{data.swipeIndexs[1, 0]}, {data.swipeIndexs[1, 1]}]");
-        Debug.Log("swipePos = " + swipePos);
         if (speedOfSwipe < 1f)
         {
             speedOfSwipe += 0.15f;
-            Debug.Log("initPosSwipe = " + data.initPosSwipe);
-            Debug.Log("vectorSwipe = " + data.vectorSwipe);
             firstFruit.transform.position = Vector3.Lerp(data.initPosSwipe, data.vectorSwipe, speedOfSwipe);
             secondFruit.transform.position = Vector3.Lerp(data.vectorSwipe, data.initPosSwipe, speedOfSwipe);
         }
@@ -138,8 +139,18 @@ public class fruitController : MonoBehaviour
         {
             speedOfSwipe = 0;
             changeArrPosition(data.swipeIndexs);
+            MatchedFindEvent();
             anim = false;
         }
+    }
+
+    private void swipe2() 
+    {
+        GameObject firstFruit = data.GeneratedFruits[data.swipeIndexs[0, 0], data.swipeIndexs[0, 1]];
+        
+        Vector2 initPos = new Vector2(transform.parent.position.x, transform.parent.parent.position.y);
+        Vector2 swipePos = new Vector2(transform.parent.position.x, transform.parent.parent.position.y);
+        
     }
 
     private void Update()

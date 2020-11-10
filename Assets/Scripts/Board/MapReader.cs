@@ -11,6 +11,7 @@ public class MapReader : MonoBehaviour
     ReaderCSV readerCSV; //Обьект для чтения csv
     public int Width = 9;
     public int Height = 9;
+    
     void Start()
     {
         data = FindObjectOfType<Data>();
@@ -22,7 +23,7 @@ public class MapReader : MonoBehaviour
             GenerateTiles2D(TileRow, TilePrefab, Width, Height);
             chooseType(readerCSV.ListOfTiles); // определить какой тип на каждый элемент массива котороый передает csv file
             readerCSV.finish = false;
-
+            
         }
     }
 
